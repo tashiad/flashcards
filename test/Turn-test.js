@@ -18,13 +18,13 @@ describe('Turn', function() {
   it('should return a guess', function() {
     const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
     const turn = new Turn('object', card);
-    expect(turn.returnGuess()).to.equal('object'); // how to test methods?
+    expect(turn.returnGuess()).to.equal('object');
   });
 
   it('should return a card', function() {
     const card = new Card(7, 'Which array prototype is not an accessor method?', ['join()', 'slice()', 'splice()'], 'splice()');
     const turn = new Turn('splice()', card);
-    expect(turn.returnCard()).to.deep.equal({ // how to test methods?
+    expect(turn.returnCard()).to.deep.equal({
       id: 7,
       question: 'Which array prototype is not an accessor method?',
       answers: ['join()', 'slice()', 'splice()'],
@@ -37,17 +37,17 @@ describe('Turn', function() {
     const turn1 = new Turn('reduce()', card);
     const turn2 = new Turn('map()', card);
     const turn3 = new Turn('filter()', card);
-    expect(turn1.evaluateGuess()).to.equal(true); // how to test methods?
+    expect(turn1.evaluateGuess()).to.equal(true);
     expect(turn2.evaluateGuess()).to.equal(false);
     expect(turn3.evaluateGuess()).to.equal(false);
   });
 
-  it.skip('should return either ‘incorrect!’ or ‘correct!’ based on whether the guess is correct or not', function() {
+  it('should return either ‘incorrect!’ or ‘correct!’ based on whether the guess is correct or not', function() {
     const card = new Card(14, 'Which iteration method can turn an array into a single value of any data type?', ['reduce()', 'map()', 'filter()'], 'reduce()');
     const turn1 = new Turn('reduce()', card);
     const turn2 = new Turn('map()', card);
     const turn3 = new Turn('filter()', card);
-    expect(turn1.evaluateGuess()).to.equal(true); // how to test methods?
+    expect(turn1.evaluateGuess()).to.equal(true);
     expect(turn1.giveFeedback()).to.equal('correct!');
     expect(turn2.evaluateGuess()).to.equal(false);
     expect(turn2.giveFeedback()).to.equal('incorrect!');
