@@ -99,8 +99,4 @@ describe('Round', function() {
     expect(round.percentageCorrect).to.equal(2 / 3 * 100)
   })
 
-  it('should log end round phrase', function() {
-    round.endRound();
-  })
-
 });
