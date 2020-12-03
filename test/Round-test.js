@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = chai.expect;
-
 const Card = require('../src/Card');
 const Deck = require('../src/Deck');
 const Round = require('../src/Round');
@@ -28,7 +27,7 @@ describe('Round', function() {
     expect(round.deck).to.deep.equal(deck);
   })
 
-  it('should return the first card in the deck as the currentCard default', function() {
+  it('should return the 1st card in the deck as the currentCard default', function() {
     expect(round.returnCurrentCard()).to.deep.equal(card1);
   })
 
@@ -42,7 +41,7 @@ describe('Round', function() {
     expect(round.turns).to.equal(2)
   })
 
-  it('should increase the turn count regardless of whether the guess is correct or incorrect', function() {
+  it('should increase turn count regardless of whether the guess is correct or incorrect', function() {
     round.takeTurn('function'); // wrong
     expect(round.turns).to.equal(1);
 
@@ -65,7 +64,6 @@ describe('Round', function() {
 
   it('should store incorrect guesses via id in an array', function() {
     round.takeTurn('function');
-
     expect(round.incorrectGuesses).to.deep.equal([1]);
 
     round.takeTurn('array');

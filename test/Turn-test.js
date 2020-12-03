@@ -1,6 +1,5 @@
 const chai = require('chai');
 const expect = chai.expect;
-
 const Card = require('../src/Card');
 const Turn = require('../src/Turn');
 
@@ -42,7 +41,7 @@ describe('Turn', function() {
     expect(turn3.evaluateGuess()).to.equal(false);
   });
 
-  it('should return either ‘incorrect!’ or ‘correct!’ based on whether the guess is correct or not', function() {
+  it('should return either ‘incorrect!’ or ‘correct!’ based on if the guess is correct or not', function() {
     const card = new Card(14, 'Which iteration method can turn an array into a single value of any data type?', ['reduce()', 'map()', 'filter()'], 'reduce()');
     const turn1 = new Turn('reduce()', card);
     const turn2 = new Turn('map()', card);
