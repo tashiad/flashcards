@@ -3,54 +3,46 @@ const expect = chai.expect;
 const Card = require('../src/Card');
 const Turn = require('../src/Turn');
 
-describe('Turn', function() {
+describe('Turn', () => {
+  let card, turn1, turn2, turn3;
 
-  it('should be a function', function() {
+  beforeEach(() => {
+    card = new Card(1, 'What kind of bear is best?', ['bears', 'beets', 'Battlestar Galactica'], 'bears');
+    turn1 = new Turn('bears', card);
+    turn2 = new Turn('beets', card);
+    turn3 = new Turn('Battlestar Galactica', card);
+  });
+
+  it('should be a function', () => {
     expect(Turn).to.be.a('function');
   });
 
-  it('should be an instance of Turn', function() {
-    const turn = new Turn();
-    expect(turn).to.be.an.instanceof(Turn);
+  it('should be an instance of Turn', () => {
+    expect(turn1).to.be.an.instanceof(Turn);
   });
 
-  it('should return a guess', function() {
-    const card = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const turn = new Turn('object', card);
-    expect(turn.returnGuess()).to.equal('object');
+  it('should return a guess', () => {
+    expect(turn1.returnGuess()).to.equal('bears');
   });
 
-  it('should return a card', function() {
-    const card = new Card(7, 'Which array prototype is not an accessor method?', ['join()', 'slice()', 'splice()'], 'splice()');
-    const turn = new Turn('splice()', card);
-    expect(turn.returnCard()).to.deep.equal({
-      id: 7,
-      question: 'Which array prototype is not an accessor method?',
-      answers: ['join()', 'slice()', 'splice()'],
-      correctAnswer: 'splice()'
+  it('should return a card', () => {
+    expect(turn1.returnCard()).to.deep.equal({
+      id: 1,
+      question: 'What kind of bear is best?',
+      answers: ['bears', 'beets', 'Battlestar Galactica'],
+      correctAnswer: 'bears'
     });
   });
 
-  it('should indicate if the guess matches the correct answer on the card', function() {
-    const card = new Card(14, 'Which iteration method can turn an array into a single value of any data type?', ['reduce()', 'map()', 'filter()'], 'reduce()');
-    const turn1 = new Turn('reduce()', card);
-    const turn2 = new Turn('map()', card);
-    const turn3 = new Turn('filter()', card);
+  it('should return a boolean if the guess matches the correct answer', () => {
     expect(turn1.evaluateGuess()).to.equal(true);
     expect(turn2.evaluateGuess()).to.equal(false);
     expect(turn3.evaluateGuess()).to.equal(false);
   });
 
-  it('should return either ‘incorrect!’ or ‘correct!’ based on if the guess is correct or not', function() {
-    const card = new Card(14, 'Which iteration method can turn an array into a single value of any data type?', ['reduce()', 'map()', 'filter()'], 'reduce()');
-    const turn1 = new Turn('reduce()', card);
-    const turn2 = new Turn('map()', card);
-    const turn3 = new Turn('filter()', card);
-    expect(turn1.evaluateGuess()).to.equal(true);
+  it('should return ‘incorrect!’ or ‘correct!’ based on guess eval', () => {
     expect(turn1.giveFeedback()).to.equal('correct!');
-    expect(turn2.evaluateGuess()).to.equal(false);
     expect(turn2.giveFeedback()).to.equal('incorrect!');
-    expect(turn3.evaluateGuess()).to.equal(false);
     expect(turn3.giveFeedback()).to.equal('incorrect!');
   });
 

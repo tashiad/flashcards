@@ -5,8 +5,8 @@ const Card = require('../src/Card');
 describe('Card', () => {
   let card;
 
-  beforeEach( () => {
-    card = new Card(1, 'What sound do dogs make?', ['moo', 'woof', 'meow'], 'woof');
+  beforeEach(() => {
+    card = new Card(1, 'What kind of bear is best?', ['bears', 'beets', 'Battlestar Galactica'], 'bears');
   });
 
   it('should be a function', () => {
@@ -22,15 +22,15 @@ describe('Card', () => {
   });
 
   it('should store a question', () => {
-    expect(card.question).to.equal('What sound do dogs make?');
+    expect(card.question).to.equal('What kind of bear is best?');
   });
 
   it('should store a list of possible answers', () => {
-    expect(card.answers).to.deep.equal(['moo', 'woof', 'meow']);
+    expect(card.answers).to.deep.equal(['bears', 'beets', 'Battlestar Galactica']);
   });
 
   it('should store the correct answer', () => {
-    expect(card.correctAnswer).to.equal('woof');
+    expect(card.correctAnswer).to.equal('bears');
   });
 
 });
