@@ -84,19 +84,14 @@ describe('Round', function() {
   })
 
   it('should calculate and return the percent of correct guesses', function() {
-    expect(round.percentageCorrect).to.equal(0)
-
     round.takeTurn('function'); // wrong
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(0)
+    expect(round.calculatePercentCorrect()).to.equal(0)
 
     round.takeTurn('array'); // right
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(1 / 2 * 100)
+    expect(round.calculatePercentCorrect()).to.equal(1 / 2 * 100)
 
     round.takeTurn('mutator method'); // right
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(2 / 3 * 100)
+    expect(round.calculatePercentCorrect()).to.equal(2 / 3 * 100)
   })
 
 });
