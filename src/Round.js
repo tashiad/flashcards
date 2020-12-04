@@ -12,23 +12,22 @@ class Round {
   }
 
   takeTurn(guess) {
-    const currentTurn = new Turn(guess, this.deck.cards[this.turns]);
-    currentTurn.evaluateGuess();
-    if (!currentTurn.evaluateGuess()) {
+    const turn = new Turn(guess, this.deck.cards[this.turns]);
+    turn.evaluateGuess();
+    if (!turn.evaluateGuess()) {
       this.incorrectGuesses.push(this.deck.cards[this.turns].id);
     }
     this.turns++;
-    return currentTurn.giveFeedback();
+    return turn.giveFeedback();
   }
 
   calculatePercentCorrect() {
-    const numCorrect = this.turns - this.incorrectGuesses.length;
-    return (numCorrect / this.turns) * 100;
+    const correctAnswers = this.turns - this.incorrectGuesses.length;
+    return Math.floor(correctAnswers / this.turns * 100);
   }
 
   endRound() {
-    console.log(`** Round over! ** You answered
-      ${this.calculatePercentCorrect()}% of the questions correctly!`);
+    console.log(`** Round over! ** You answered ${this.calculatePercentCorrect()}% of the questions correctly!`);
   }
 
 }
