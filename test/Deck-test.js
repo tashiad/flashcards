@@ -3,22 +3,29 @@ const expect = chai.expect;
 const Card = require('../src/Card');
 const Deck = require('../src/Deck');
 
-describe('Deck', function() {
+describe('Deck', () => {
+  let deck, card1, card2, card3;
 
-  it('should be a function', function() {
+  beforeEach( () => {
+    card1 = new Card(1, 'What kind of bear is best?', ['bears', 'beets', 'Battlestar Galactica'], 'bears');
+    card2 = new Card(2, 'What is Pams favorite flavor of yogurt?', ['vanilla', 'strawberry', 'mixed berry'], 'mixed berry');
+    card3 = new Card(3, 'Which cat of Angelas did Dwight kill?', ['Milky Way', 'Sprinkles', 'Philip'], 'Sprinkles');
+    deck = new Deck([card1, card2, card3]);
+  });
+
+  it('should be a function', () => {
     expect(Deck).to.be.a('function');
   });
 
-  it('should be an instance of Deck', function() {
-    const deck = new Deck();
+  it('should be an instance of Deck', () => {
     expect(deck).to.be.an.instanceof(Deck);
   });
 
-  it('should return the number of cards in the deck', function() {
-    const card1 = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    const card2 = new Card(7, 'Which array prototype is not an accessor method?', ['join()', 'slice()', 'splice()'], 'splice()');
-    const card3 = new Card(14, 'Which iteration method can turn an array into a single value of any data type?', ['reduce()', 'map()', 'filter()'], 'reduce()');
-    const deck = new Deck([card1, card2, card3]);
+  it('should contain an array of cards', () => {
+    expect(deck.cards).to.deep.equal([card1, card2, card3]);
+  });
+
+  it('should return the number of cards in the deck', () => {
     expect(deck.countCards()).to.equal(3);
   });
 
