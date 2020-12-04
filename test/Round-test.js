@@ -1,102 +1,91 @@
 const chai = require('chai');
 const expect = chai.expect;
-
 const Card = require('../src/Card');
 const Deck = require('../src/Deck');
 const Round = require('../src/Round');
 
-describe('Round', function() {
+describe('Round', () => {
   let card1, card2, card3, deck, round;
 
-  beforeEach(function() {
-    card1 = new Card(1, 'What allows you to define a set of related information using key-value pairs?', ['object', 'array', 'function'], 'object');
-    card2 = new Card(2, 'What is a comma-separated list of related values?', ['array', 'object', 'function'], 'array');
-    card3 = new Card(3, 'What type of prototype method directly modifies the existing array?', ['mutator method', 'accessor method', 'iteration method'], 'mutator method');
+  beforeEach(() => {
+    card1 = new Card(1, 'What kind of bear is best?', ['bears', 'beets', 'Battlestar Galactica'], 'bears');
+    card2 = new Card(2, 'What is Pams favorite flavor of yogurt?', ['vanilla', 'strawberry', 'mixed berry'], 'mixed berry');
+    card3 = new Card(3, 'Which cat of Angelas did Dwight kill?', ['Milky Way', 'Sprinkles', 'Philip'], 'Sprinkles');
     deck = new Deck([card1, card2, card3]);
     round = new Round(deck);
   })
 
-  it('should be a function', function() {
+  it('should be a function', () => {
     expect(Round).to.be.a('function');
-  });
+  })
 
-  it('should be an instance of Round', function() {
+  it('should be an instance of Round', () => {
     expect(round).to.be.an.instanceof(Round);
-  });
+  })
 
-  it('should have a deck', function() {
+  it('should have a deck', () => {
     expect(round.deck).to.deep.equal(deck);
   })
 
-  it('should return the first card in the deck as the currentCard default', function() {
-    expect(round.returnCurrentCard()).to.deep.equal(card1);
-  })
-
-  it('should start out with 0 turn count', function() {
+  it('should start out with 0 turns', () => {
     expect(round.turns).to.equal(0);
   })
 
-  it('should increase the turn count after a turn has been taken', function() {
-    round.takeTurn('function');
-    round.takeTurn('array');
-    expect(round.turns).to.equal(2)
+  it('should return the first card in the deck to start', () => {
+    expect(round.returnCurrentCard()).to.deep.equal(card1);
   })
 
-  it('should increase the turn count regardless of whether the guess is correct or incorrect', function() {
-    round.takeTurn('function'); // wrong
+  it('should increase turns after a turn has been taken', () => {
+    round.takeTurn('bears');
+    round.takeTurn('strawberry');
+    expect(round.turns).to.equal(2);
+  })
+
+  it('should increase turns for both correct and incorrect guesses', () => {
+    round.takeTurn('beets');
     expect(round.turns).to.equal(1);
 
-    round.takeTurn('array'); // right
+    round.takeTurn('mixed berry');
     expect(round.turns).to.equal(2);
 
-    round.takeTurn('accessor method'); // wrong
+    round.takeTurn('Philip');
     expect(round.turns).to.equal(3);
   })
 
-  it('should make the next card the current card after each turn', function() {
+  it('should make the next card the current card after each turn', () => {
     expect(round.returnCurrentCard()).to.deep.equal(card1);
-
-    round.takeTurn();
+    round.takeTurn('beets');
     expect(round.returnCurrentCard()).to.deep.equal(card2);
-
-    round.takeTurn();
+    round.takeTurn('strawberry');
     expect(round.returnCurrentCard()).to.deep.equal(card3);
   })
 
-  it('should store incorrect guesses via id in an array', function() {
-    round.takeTurn('function');
+  it('should start out with 0 incorrect guesses', () => {
+    expect(round.incorrectGuesses).to.deep.equal([]);
+  })
 
+  it('should store incorrect guesses via id in an array', () => {
+    round.takeTurn('beets');
     expect(round.incorrectGuesses).to.deep.equal([1]);
-
-    round.takeTurn('array');
+    round.takeTurn('mixed berry');
     expect(round.incorrectGuesses).to.deep.equal([1]);
-
-    round.takeTurn('accessor method');
+    round.takeTurn('Philip');
     expect(round.incorrectGuesses).to.deep.equal([1, 3]);
   })
 
-  it('should tell you if your guess was correct or incorrect', function() {
-    expect(round.takeTurn('function')).to.equal('incorrect!');
-
-    expect(round.takeTurn('array')).to.equal('correct!');
-
-    expect(round.takeTurn('accessor method')).to.equal('incorrect!');
+  it('should return whether your guess was correct or incorrect', () => {
+    expect(round.takeTurn('beets')).to.equal('incorrect!');
+    expect(round.takeTurn('mixed berry')).to.equal('correct!');
+    expect(round.takeTurn('Philip')).to.equal('incorrect!');
   })
 
-  it('should calculate and return the percent of correct guesses', function() {
-    expect(round.percentageCorrect).to.equal(0)
-
-    round.takeTurn('function'); // wrong
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(0)
-
-    round.takeTurn('array'); // right
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(1 / 2 * 100)
-
-    round.takeTurn('mutator method'); // right
-    round.calculatePercentCorrect()
-    expect(round.percentageCorrect).to.equal(2 / 3 * 100)
+  it('should return the percent of correct guesses', () => {
+    round.takeTurn('beets');
+    expect(round.calculatePercentCorrect()).to.equal(0);
+    round.takeTurn('mixed berry');
+    expect(round.calculatePercentCorrect()).to.equal(50);
+    round.takeTurn('Sprinkles');
+    expect(round.calculatePercentCorrect()).to.equal(66);
   })
 
-});
+})
