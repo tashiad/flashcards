@@ -1,79 +1,58 @@
-# FlashCards Starter Kit
+# FlashCards
 
-## Fork This Repo
+A little flash cards application that runs in the command line interface (CLI). A user can see the questions, take guesses, and see a final score at the end of the round.
 
-On the top right corner of this page, click the **Fork** button.
+## Project Goals
+
+* Contribute code to an partially constructed object-oriented application
+* Follow spec/prompts to make a working application
+* Implement ES6 classes
+* Write modular, reusable code that follows SRP (Single Responsibility Principle)
+* Implement a robust testing suite using TDD
+
+I also got some practice using a GitHub Project Board. You can check it out [here](https://github.com/tashiad/flashcards/projects/1).
+
+## Contributors
+
+Myself, and the occasional pick-me-up from my lovely mentor, @farmermel.
+
+## Technologies
+
+* JavaScript
+* GitHub
+* Git
+* Atom
+* Mocha
+* Chai
 
 ## Setup
 
-Clone down the forked repo (from your GitHub). Since you don't want to name your project "flashcards-starter", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments):
+Clone down the repo, then change into the directory and run `npm install` to install the library dependencies.
 
-```bash
-git clone [remote-address] [what you want to name the repo]
-```
+## Running the Application
 
-Once you have cloned the repo, change into the directory and install the library dependencies. Run:
+Running `node index.js` from the directory should result in the following message being displayed in your terminal:
 
-```bash
-npm install
-```
-
-To verify that it is setup correctly, run `npm test` in your terminal. You should have 5 pending tests in your `Card` test file that show up.
-
-Running `node index.js` from the root of your project should result in the following message being displayed in your terminal: 
-
-```bash
+```zsh
 Node server running on port 3000
+Welcome to FlashCards! You are playing with 30 cards.
+-----------------------------------------------------------------------
+? What allows you to define a set of related information using key-value pairs?
+
+  1) object
+  2) array
+  3) function
+  Answer:
 ```
 
-*Note that you will not need to you run your server until you are instantiating your `Game` class in Iteration 3. Prior to that, you should be using TDD to drive your code. You should check the functionality of your application by running your tests via `npm test`.*
+For each question prompt, select an answer by typing either 1, 2, or 3 and then hit `enter`. The application will let you know if your guess was correct or not. Hit `enter` again to move onto the next question. Once you play through the entire deck of 30 cards, it will let you know the percentage of answers you got right.
 
+![flash cards example gif](https://www.loom.com/embed/0e6066e1646a4651bbfb6b6b21e267bb)
 
-## Where to Add Your Code
+![flash cards example gif](https://media.giphy.com/media/d5d4ERO1B5tsPzyu59/giphy.gif)
 
-### JavaScript
+To play again, type `command c` to exit the application and then `node index.js` to start from the beginning of the deck.
 
-**Create all of your feature code files in the `src` directory.**
+## Future Features
 
-We will be using the `module.exports` and `require` syntax to share code across files.
-
-## How to View Your Code in Action
-
-Once you are working through Iteration 3, you will want to start your server to test your functionality.
-In the terminal, run:
-
-```bash
-node index.js
-```
-
-When the game is functioning appropriately, you will be prompted for each question, have the opportunity to select an answer, and will be given feedback. You will be able to play through the entire deck of cards:
-
-![flash cards example gif](https://media.giphy.com/media/1zkb1q58eTiTH6D7wc/giphy.gif)
-
----
-
-## Test Files Organization
-
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `Round-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
-
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
----
+It would be helpful to add a **review incorrect answers** functionality. Instead of ending the game after you’ve gone through all of the cards, you can continue reviewing only the cards that you guessed incorrectly until there are none left (all have been answered correctly).
